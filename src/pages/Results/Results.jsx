@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Survey = () => {
+const Results = () => {
     return (
         <div>
-            <h1>Questionnaire</h1>
+           <h1>Résultats</h1> 
         </div>
     );
 };
 
-export default Survey;
+export default Results;

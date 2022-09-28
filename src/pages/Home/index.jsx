@@ -1,5 +1,4 @@
-import Header from '../components/Header';
-import '../styles/_home.css';
+import '../../styles/_home.css';
 
 function Home() {
   return (
