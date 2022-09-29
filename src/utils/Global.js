@@ -1,5 +1,6 @@
 const global = {
   website: "http://127.0.0.1:3000",
+  api: "http://127.0.0.1:8000",
   colors: 
     {
       primary: "#5843E4",

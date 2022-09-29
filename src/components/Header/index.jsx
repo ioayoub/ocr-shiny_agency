@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import "../../styles/components/Header/_index.css";
 
@@ -20,8 +20,8 @@ const Myspan = styled.span`
   padding: 0 20px;
   background-color: white;
   height: 80px;
-  width : 90%;
-  margin : auto;
+  width: 90%;
+  margin: auto;
 `;
 
 const MyLogo = styled.img`
@@ -32,9 +32,13 @@ const Header = () => {
   return (
     <div>
       <Myspan>
-        <MyLogo src="/images/dark-logo.png" alt="logo" className="logo" />
+        <Link to="/" end="true">
+          <MyLogo src="/images/dark-logo.png" alt="logo" className="logo" />
+        </Link>
         <nav>
-          <StyledLink to="/" end>Accueil</StyledLink>
+          <StyledLink to="/" end>
+            Accueil
+          </StyledLink>
           <StyledLink to="/freelances">Profils</StyledLink>
           <StyledLink to="/survey">Faire le test</StyledLink>
         </nav>

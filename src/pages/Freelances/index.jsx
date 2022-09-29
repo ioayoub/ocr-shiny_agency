@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import styled from "styled-components";
 import global from "../../utils/Global";
 
+
 const CardsContainer = styled.div`
   display: grid;
   gap: 24px;
