@@ -9,3 +9,9 @@ nav > a {
     margin-left : 1em;
     
 }
+
+.active {
+    color: #fff !important;
+    background-color: #5843E4;
+    border-radius: 20px;
+}

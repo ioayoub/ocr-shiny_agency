@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from 'styled-components';
 
-import Error from "./components/Error/NotFound";
+import Error from "./pages/Error/NotFound";
 import Header from "./components/Header";
 
 import Freelances from "./pages/Freelances";
