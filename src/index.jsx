@@ -10,6 +10,7 @@ import Freelances from "./pages/Freelances";
 import Home from "./pages/Home";
 import Results from "./pages/Results/Results";
 import Survey from "./pages/Survey/Survey";
+import Profile from "./pages/Freelances/show";
 
 const GlobalStyle = createGlobalStyle`
     div {
@@ -28,7 +29,8 @@ root.render(
         {/* <Route path="/survey" element={<Survey />} /> */}
         <Route path="survey/:questionNumber" element={<Survey />} />
         <Route path="/results" element={<Results />} />
-        <Route path="/freelances" element={<Freelances />} />
+        <Route path="/freelances" end="true" element={<Freelances />} />
+        <Route path="/freelance" element={<Profile />} />
         <Route path="*" element={<Error />} />
 
       </Routes>

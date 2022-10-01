@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Card from "../../components/Card";
 import styled from "styled-components";
 import global from "../../utils/Global";
-
+import axios from "axios";
 
 const CardsContainer = styled.div`
   display: grid;
@@ -13,7 +13,6 @@ const CardsContainer = styled.div`
   justify-content: center;
   width: 50%;
   margin: auto;
- 
 `;
 
 const FreelancesTxt = styled.div`
@@ -21,66 +20,51 @@ const FreelancesTxt = styled.div`
 `;
 
 const FreelancesTxtH1 = styled.h1`
-  margin-top : 2em;
-  margin-bottom : 2em;
+  margin-top: 2em;
+  margin-bottom: 2em;
 `;
 
 const FreelancesTxtP = styled.p`
-  margin-top : 2em;
-  margin-bottom : 5em;
+  margin-top: 2em;
+  margin-bottom: 5em;
 `;
 
+function Freelances() {
+  const [freelances, setFreelances] = useState([]);
 
-const Freelances = () => {
-  const DefaultPicture = `${global.website}/images/profile.png`;
-
-  const freelanceProfiles = [
-    {
-      name: "Jane Doe",
-      jobTitle: "Devops",
-      picture: DefaultPicture,
-    },
-    {
-      name: "John Doe",
-      jobTitle: "Developpeur frontend",
-      picture: DefaultPicture,
-    },
-    {
-      name: "Jeanne Biche",
-      jobTitle: "Développeuse Fullstack",
-      picture: DefaultPicture,
-    },
-    {
-      name: "Maurice Dupont",
-      jobTitle: "Développeuse Fullstack",
-      picture: DefaultPicture,
-    },
-  ];
+  useEffect(() => {
+    async function getFreelances() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/freelances");
+        setFreelances(response.data.freelancersList);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFreelances();
+  }, []);
 
   return (
     <div>
       <FreelancesTxt>
         <FreelancesTxtH1>Trouvez votre prestataire</FreelancesTxtH1>
-        <FreelancesTxtP>Chez Shiny nous réunissons les meilleurs profils pour vous.</FreelancesTxtP>
+        <FreelancesTxtP>
+          Chez Shiny nous réunissons les meilleurs profils pour vous.
+        </FreelancesTxtP>
       </FreelancesTxt>
       <CardsContainer>
-        {freelanceProfiles.map((profile, index) => (
-          <Card
-            key={`${profile.name}-${index}`}
-            label={profile.jobTitle}
-            picture={profile.picture}
-            title={profile.name}
-          />
+        {freelances.map((profile, index) => (
+          <Card key={`${profile.name}-${index}`} profile={profile} />
         ))}
       </CardsContainer>
     </div>
   );
-};
+}
 
 Card.propTypes = {
   label: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-};
+};  
 
 export default Freelances;

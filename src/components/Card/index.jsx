@@ -1,9 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import global from "../../utils/Global";
 
 const DefaultPicture = `${global.website}/images/profile.png`;
 
+const CardDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 15;
+  text-decoration: none;
+`;
 const CardLabel = styled.span`
   color: #5843e4;
   font-size: 22px;
@@ -37,15 +44,25 @@ const CardName = styled.span`
   font-size: 1.2em;
 `;
 
-const Card = ({ label, title, picture }) => {
+const CardLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+const Card = ({ profile }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", padding: 15 }}>
-      <CardWrapper>
-        <CardLabel>{label}</CardLabel>
-        <CardImage src={picture} alt="freelance" height={80} width={80} />
-        <CardName>{title}</CardName>
-      </CardWrapper>
-    </div>
+    <CardDiv>
+      <CardLink to={`/freelance?id=${profile.id}`} style={{ textDecoration: "none" }}>
+        <CardWrapper>
+          <CardLabel>{profile.job}</CardLabel>
+          <CardImage
+            src={profile.picture}
+            alt="freelance"
+          />
+          <CardName>{profile.name}</CardName>
+        </CardWrapper>
+      </CardLink>
+    </CardDiv>
   );
 };
 

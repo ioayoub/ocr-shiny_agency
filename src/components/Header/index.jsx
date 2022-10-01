@@ -40,7 +40,7 @@ const Header = () => {
             Accueil
           </StyledLink>
           <StyledLink to="/freelances">Profils</StyledLink>
-          <StyledLink to="/survey">Faire le test</StyledLink>
+          <StyledLink to="/survey/1">Faire le test</StyledLink>
         </nav>
       </Myspan>
     </div>
