@@ -29,3 +29,15 @@ export const SurveyProvider = ({ children }) => {
     </SurveyContext.Provider>
   )
 }
+
+export const TestContext = createContext()
+
+export const TestProvider = ({children}) => {
+  const [testText, setTestText] = useState('la variable est là bébé');
+
+  return (
+    <TestContext.Provider value={{testText, setTestText}}>
+      {children}
+    </TestContext.Provider>
+  )
+}

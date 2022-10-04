@@ -28,13 +28,39 @@ const QuestionContent = styled.span`
 const LinkWrapper = styled(Link)`
   padding-top: 30px;
   margin-left: 1em;
-  margin-right : 1em;
+  margin-right: 1em;
   & a {
     color: black;
   }
   & a:first-of-type {
     margin-right: 20px;
   }
+`;
+const ReplyBox = styled.button`
+  border: none;
+  height: 100px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${global.colors.backgroundLight};
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: ${(props) =>
+    props.isSelected
+      ? `0px 0px 0px 2px ${global.colors.primary} inset`
+      : "none"};
+  &:first-child {
+    margin-right: 15px;
+  }
+  &:last-of-type {
+    margin-left: 15px;
+  }
+`;
+
+const ReplyWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const Survey = () => {
@@ -48,13 +74,17 @@ const Survey = () => {
 
   const [questions, setQuestions] = useState();
 
-useEffect(() => {
-  async function fetchSurvey() {
-    try {
-      const response =  await axios.get(`${global.api}/survey`)
-      setQuestions(response);
-      } catch(e) {
-        console.error(e)
+  function saveReply(answer) {
+    saveAnswers({ [questionNumber]: answer });
+  }
+
+  useEffect(() => {
+    async function fetchSurvey() {
+      try {
+        const response = await axios.get(`${global.api}/survey`);
+        setQuestions(response);
+      } catch (e) {
+        console.error(e);
       } finally {
         //...
       }
@@ -64,7 +94,7 @@ useEffect(() => {
 
   const { answers, saveAnswers } = useContext(SurveyContext);
 
-    return (
+  return (
     <div>
       <QuestionTitle>Question {qNum}</QuestionTitle>
       <QuestionContent>
@@ -72,6 +102,21 @@ useEffect(() => {
       </QuestionContent>
       {!isNaN(qNum) && (
         <SurveyContainer>
+          <ReplyWrapper>
+            <ReplyBox
+              onClick={() => saveReply(true)}
+              isSelected={answers[questionNumber] === true}
+            >
+              Oui
+            </ReplyBox>
+            <ReplyBox
+              onClick={() => saveReply(false)}
+              isSelected={answers[questionNumber] === false}
+            >
+              Non
+            </ReplyBox>
+          </ReplyWrapper>
+
           <LinkWrapper to={`/survey/${prevNum}`} disabled={qNum === 1}>
             Précédent
           </LinkWrapper>

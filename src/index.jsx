@@ -12,8 +12,9 @@ import Results from "./pages/Results/Results";
 import Survey from "./pages/Survey/Survey";
 import Profile from "./pages/Freelances/show";
 import Footer from "./components/Footer";
-import { SurveyProvider, ThemeProvider } from "./utils/Context";
+import { SurveyProvider, TestProvider, ThemeProvider } from "./utils/Context";
 import GlobalStyle from "./utils/style/GlobalStyle";
+import Test from "./pages/Test";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,18 +22,21 @@ root.render(
     <BrowserRouter>
       <ThemeProvider>
         <SurveyProvider>
-          <GlobalStyle />
-          <Header />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            {/* <Route path="/survey" element={<Survey />} /> */}
-            <Route path="survey/:questionNumber" element={<Survey />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/freelances" end="true" element={<Freelances />} />
-            <Route path="/freelance" element={<Profile />} />
-            <Route path="*" element={<Error />} />
+          <TestProvider>
+            <GlobalStyle />
+            <Header />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              {/* <Route path="/survey" element={<Survey />} /> */}
+              <Route path="survey/:questionNumber" element={<Survey />} />
+              <Route path="/results" element={<Results />} />
+              <Route path="/freelances" end="true" element={<Freelances />} />
+              <Route path="/freelance" element={<Profile />} />
+              <Route path="*" element={<Error />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
-          <Footer />
+            <Footer />
+          </TestProvider>
         </SurveyProvider>
       </ThemeProvider>
     </BrowserRouter>
