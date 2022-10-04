@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import global from "../../utils/Global";
 import axios from "axios";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
+import { SurveyContext } from "../../utils/Context";
 
 const SurveyContainer = styled.div`
   display: flex;
@@ -37,18 +38,6 @@ const LinkWrapper = styled(Link)`
 `;
 
 const Survey = () => {
-  // permet de récupérer la route actuelle et faire un routing nested
-  //Exemple : /survey/1
-  // let path = useLocation();
-
-  // <BrowserRouter>
-  // <Routes>
-  //     <Route path="/" element= {{path} + "/"} />
-  //     <Route path="/test" element={{path} + "/test"} />
-  //     <Route path="*" element={<h1>Page not Found</h1>} />
-  // </Routes>
-  // </BrowserRouter>
-
   // permet de récupérer les paramètres de la route
   let { questionNumber } = useParams();
 
@@ -57,20 +46,7 @@ const Survey = () => {
   const nextNum = qNum <= 10 ? qNum + 1 : 10;
   const prevNum = qNum > 1 ? qNum - 1 : 1;
 
-  const [surveyData, setSurveyData] = useState([{}]);
-  const [isDataLoading, setDataLoading] = useState(false);
   const [questions, setQuestions] = useState();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${global.api}/survey`)
-  //     .then((data) => {
-  //       if (data && questions !== data) {
-  //         setQuestions(data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
 
 useEffect(() => {
   async function fetchSurvey() {
@@ -85,6 +61,8 @@ useEffect(() => {
     }
     fetchSurvey();
   }, []);
+
+  const { answers, saveAnswers } = useContext(SurveyContext);
 
     return (
     <div>

@@ -31,13 +31,16 @@ const HomeBtn = styled.button`
   border : none;
 `;
 
+
 function Home() {
+
   return (
     <HomeDiv className="home">
       <div className="home_txt">
         <HomeTitle>
-          Récupérez vos besoins,
+          Récupérez vos besoins,  
           <br />
+
           on s'occupe du reste,
           <br />
           avec les meilleurs
