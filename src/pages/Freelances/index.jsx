@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import styled from "styled-components";
 import global from "../../utils/Global";
 import axios from "axios";
+import { Loader } from "../../utils/Atoms";
 
 const CardsContainer = styled.div`
   display: grid;
@@ -29,8 +30,14 @@ const FreelancesTxtP = styled.p`
   margin-bottom: 5em;
 `;
 
+const LoaderDiv = styled.div`
+display: flex;
+justify-content: center;
+`;
+
 function Freelances() {
   const [freelances, setFreelances] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function getFreelances() {
@@ -39,6 +46,8 @@ function Freelances() {
         setFreelances(response.data.freelancersList);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     }
     getFreelances();
@@ -52,11 +61,17 @@ function Freelances() {
           Chez Shiny nous réunissons les meilleurs profils pour vous.
         </FreelancesTxtP>
       </FreelancesTxt>
-      <CardsContainer>
-        {freelances.map((profile, index) => (
-          <Card key={`${profile.name}-${index}`} profile={profile} />
-        ))}
-      </CardsContainer>
+      {isLoading ? (
+        <LoaderDiv>
+          <Loader />
+        </LoaderDiv>
+      ) : (
+        <CardsContainer>
+          {freelances.map((profile, index) => (
+            <Card key={`${profile.name}-${index}`} profile={profile} />
+          ))}
+        </CardsContainer>
+      )}
     </div>
   );
 }
@@ -65,6 +80,6 @@ Card.propTypes = {
   label: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-};  
+};
 
 export default Freelances;

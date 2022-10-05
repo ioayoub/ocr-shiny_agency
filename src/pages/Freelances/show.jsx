@@ -41,9 +41,15 @@ const SkillLI = styled.li`
   border: 1px solid black;
 `;
 
+const LoaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const FreelanceShow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [freelance, setFreelance] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   let profileid = searchParams.get("id");
 
@@ -57,6 +63,8 @@ const FreelanceShow = () => {
       } catch (e) {
         console.log(e);
         window.location.href = "/error";
+      } finally {
+        setIsLoading(false);
       }
     }
     getFreelance();
@@ -64,37 +72,37 @@ const FreelanceShow = () => {
 
   console.log(freelance);
 
-  if (freelance) {
-    return (
-      <FreelanceDiv>
-        <FreelanceAlignDiv>
-          <FreelanceImg src={freelance.picture} alt="freelance image" />
-        </FreelanceAlignDiv>
-        <div style={{marginTop: "auto", marginBottom: "auto"}}>
-          <h1>{freelance.name}</h1>
-          <h2>{freelance.job}</h2>
-          <SkillUl>
-            {freelance.skills.map((skill, index) => (
-              <SkillLI key={index}>{skill}</SkillLI>
-            ))}
-          </SkillUl>
-          <h3>
-            {freelance.available ? (
-              <span>Disponible maintenant</span>
-            ) : (
-              <span>Non disponible</span>
-            )}
-          </h3>
-          <h3>{freelance.tjm} € / Jour</h3>
-        </div>
-      </FreelanceDiv>
-    );
-  }
-
   return (
-    <FreelanceDiv>
-      <Loader />
-    </FreelanceDiv>
+    <div>
+      {isLoading ? (
+        <LoaderDiv>
+          <Loader />
+        </LoaderDiv>
+      ) : (
+        <FreelanceDiv>
+          <FreelanceAlignDiv>
+            <FreelanceImg src={freelance.picture} alt="freelance image" />
+          </FreelanceAlignDiv>
+          <div style={{ marginTop: "auto", marginBottom: "auto" }}>
+            <h1>{freelance.name}</h1>
+            <h2>{freelance.job}</h2>
+            <SkillUl>
+              {freelance.skills.map((skill, index) => (
+                <SkillLI key={index}>{skill}</SkillLI>
+              ))}
+            </SkillUl>
+            <h3>
+              {freelance.available ? (
+                <span>Disponible maintenant</span>
+              ) : (
+                <span>Non disponible</span>
+              )}
+            </h3>
+            <h3>{freelance.tjm} € / Jour</h3>
+          </div>
+        </FreelanceDiv>
+      )}
+    </div>
   );
 };
 

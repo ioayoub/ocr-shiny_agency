@@ -8,9 +8,10 @@ import { SurveyContext } from "../../utils/Context";
 
 const SurveyContainer = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  margin-top: 3em;
 `;
 
 const QuestionTitle = styled.h1`
@@ -36,6 +37,14 @@ const LinkWrapper = styled(Link)`
     margin-right: 20px;
   }
 `;
+
+const LinkDiv = styled.div`
+  display : flex;
+  flex-direction : row;
+  justify-content : center;
+  margin-top : 2em;
+`;
+
 const ReplyBox = styled.button`
   border: none;
   height: 100px;
@@ -73,9 +82,12 @@ const Survey = () => {
   const prevNum = qNum > 1 ? qNum - 1 : 1;
 
   const [questions, setQuestions] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
+  const { answers, saveAnswers } = useContext(SurveyContext);
+  
   function saveReply(answer) {
-    saveAnswers({ [questionNumber]: answer });
+    saveAnswers({ [questionNumber] : answer });
   }
 
   useEffect(() => {
@@ -86,47 +98,49 @@ const Survey = () => {
       } catch (e) {
         console.error(e);
       } finally {
-        //...
+        setIsLoading(false);
       }
     }
     fetchSurvey();
   }, []);
 
-  const { answers, saveAnswers } = useContext(SurveyContext);
 
   return (
     <div>
       <QuestionTitle>Question {qNum}</QuestionTitle>
       <QuestionContent>
-        {questions ? questions.data.surveyData[qNum] : <Loader />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>{questions.data.surveyData[questionNumber]}</>
+        )}
       </QuestionContent>
       {!isNaN(qNum) && (
         <SurveyContainer>
           <ReplyWrapper>
             <ReplyBox
               onClick={() => saveReply(true)}
-              isSelected={answers[questionNumber] === true}
-            >
+              isSelected={answers[questionNumber] === true}>
               Oui
             </ReplyBox>
             <ReplyBox
               onClick={() => saveReply(false)}
-              isSelected={answers[questionNumber] === false}
-            >
+              isSelected={answers[questionNumber] === false}>
               Non
             </ReplyBox>
           </ReplyWrapper>
+          <LinkDiv>
+            <LinkWrapper to={`/survey/${prevNum}`} disabled={qNum === 1}>
+              Précédent
+            </LinkWrapper>
+            {qNum < 10 && (
+              <LinkWrapper to={`/survey/${nextNum}`}>Suivant</LinkWrapper>
+            )}
 
-          <LinkWrapper to={`/survey/${prevNum}`} disabled={qNum === 1}>
-            Précédent
-          </LinkWrapper>
-          {qNum < 10 && (
-            <LinkWrapper to={`/survey/${nextNum}`}>Suivant</LinkWrapper>
-          )}
-
-          {qNum === 10 && (
-            <LinkWrapper to="/results">Voir les résultats</LinkWrapper>
-          )}
+            {qNum === 10 && (
+              <LinkWrapper to="/results">Voir les résultats</LinkWrapper>
+            )}
+          </LinkDiv>
         </SurveyContainer>
       )}
     </div>
