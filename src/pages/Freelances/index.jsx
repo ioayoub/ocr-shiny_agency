@@ -5,6 +5,7 @@ import styled from "styled-components";
 import global from "../../utils/Global";
 import axios from "axios";
 import { Loader } from "../../utils/Atoms";
+import { useFetch } from "../../utils/hooks";
 
 const CardsContainer = styled.div`
   display: grid;
@@ -36,22 +37,12 @@ justify-content: center;
 `;
 
 function Freelances() {
-  const [freelances, setFreelances] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function getFreelances() {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/freelances");
-        setFreelances(response.data.freelancersList);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    getFreelances();
-  }, []);
+  const { data, isLoading, error} = useFetch("http://localhost:8000/freelances");
+  
+ if(error) {
+  return <p>Il semblerait qu'une erreur s'est produite.</p>
+ }
 
   return (
     <div>
@@ -67,7 +58,7 @@ function Freelances() {
         </LoaderDiv>
       ) : (
         <CardsContainer>
-          {freelances.map((profile, index) => (
+          {data.freelancersList.map((profile, index) => (
             <Card key={`${profile.name}-${index}`} profile={profile} />
           ))}
         </CardsContainer>

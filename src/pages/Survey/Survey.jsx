@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import global from "../../utils/Global";
-import axios from "axios";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
 import { SurveyContext } from "../../utils/Context";
+import { useFetch } from "../../utils/hooks";
 
 const SurveyContainer = styled.div`
   display: flex;
@@ -39,10 +39,10 @@ const LinkWrapper = styled(Link)`
 `;
 
 const LinkDiv = styled.div`
-  display : flex;
-  flex-direction : row;
-  justify-content : center;
-  margin-top : 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2em;
 `;
 
 const ReplyBox = styled.button`
@@ -81,29 +81,34 @@ const Survey = () => {
   const nextNum = qNum <= 10 ? qNum + 1 : 10;
   const prevNum = qNum > 1 ? qNum - 1 : 1;
 
-  const [questions, setQuestions] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [questions, setQuestions] = useState();
+  // const [isLoading, setIsLoading] = useState(true);
 
   const { answers, saveAnswers } = useContext(SurveyContext);
-  
+
+  const { data, isLoading, error } = useFetch(`${global.api}/survey`);
+  const { surveyData } = data;
+
   function saveReply(answer) {
-    saveAnswers({ [questionNumber] : answer });
+    saveAnswers({ [questionNumber]: answer });
   }
 
-  useEffect(() => {
-    async function fetchSurvey() {
-      try {
-        const response = await axios.get(`${global.api}/survey`);
-        setQuestions(response);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchSurvey();
-  }, []);
-
+  // useEffect(() => {
+  // async function fetchSurvey() {
+  //   try {
+  //     const response = await axios.get(`${global.api}/survey`);
+  //     setQuestions(response);
+  //   } catch (e) {
+  //     console.error(e);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+  // fetchSurvey();
+  // }, []);
+  if (error) {
+    return <QuestionContent>Il semberait qu'une erreur s'est produite.</QuestionContent>;
+  }
 
   return (
     <div>
@@ -112,7 +117,7 @@ const Survey = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <>{questions.data.surveyData[questionNumber]}</>
+          <>{surveyData && surveyData[questionNumber]}</>
         )}
       </QuestionContent>
       {!isNaN(qNum) && (
@@ -120,12 +125,14 @@ const Survey = () => {
           <ReplyWrapper>
             <ReplyBox
               onClick={() => saveReply(true)}
-              isSelected={answers[questionNumber] === true}>
+              isSelected={answers[questionNumber] === true}
+            >
               Oui
             </ReplyBox>
             <ReplyBox
               onClick={() => saveReply(false)}
-              isSelected={answers[questionNumber] === false}>
+              isSelected={answers[questionNumber] === false}
+            >
               Non
             </ReplyBox>
           </ReplyWrapper>
