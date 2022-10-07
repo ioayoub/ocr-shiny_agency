@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import "../../styles/components/Header/_index.css";
+import {globalvar} from "../../utils/Global";
 
 const StyledLink = styled(NavLink)`
   padding: 15px;
@@ -10,7 +11,7 @@ const StyledLink = styled(NavLink)`
   font-size: 18px;
   ${(props) =>
     props.$isFullLink &&
-    `color: white; border-radius: 30px; background-color: ${global.colors.primary};`}
+    `color: white; border-radius: 30px; background-color: ${globalvar.colors.primary};`}
 `;
 
 const Myspan = styled.span`

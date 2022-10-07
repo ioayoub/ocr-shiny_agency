@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import global from "../../utils/Global";
+import globalvar from "../../utils/Global";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
 import { SurveyContext } from "../../utils/Context";
@@ -16,7 +16,7 @@ const SurveyContainer = styled.div`
 
 const QuestionTitle = styled.h1`
   text-decoration: underline;
-  text-decoration-color: ${global.colors.primary};
+  text-decoration-color: ${globalvar.colors.primary};
   text-align: center;
 `;
 
@@ -52,12 +52,12 @@ const ReplyBox = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${global.colors.backgroundLight};
+  background-color: ${globalvar.colors.backgroundLight};
   border-radius: 30px;
   cursor: pointer;
   box-shadow: ${(props) =>
     props.isSelected
-      ? `0px 0px 0px 2px ${global.colors.primary} inset`
+      ? `0px 0px 0px 2px ${globalvar.colors.primary} inset`
       : "none"};
   &:first-child {
     margin-right: 15px;
@@ -83,7 +83,7 @@ const Survey = () => {
 
   const { answers, saveAnswers } = useContext(SurveyContext);
 
-  const { data, isLoading, error } = useFetch(`${global.api}/survey`);
+  const { data, isLoading, error } = useFetch(`${globalvar.api}/survey`);
   const { surveyData } = data;
 
   function saveReply(answer) {

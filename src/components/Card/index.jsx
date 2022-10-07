@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import global from "../../utils/Global";
+import globalvar from "../../utils/Global";
 
-const DefaultPicture = `${global.website}/images/profile.png`;
+const DefaultPicture = `${globalvar.website}/images/profile.png`;
 
 const CardDiv = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px;
-  background-color: ${global.colors.backgroundLight};
+  background-color: ${globalvar.colors.backgroundLight};
   border-radius: 30px;
   width: 20em;
   height: 20em;

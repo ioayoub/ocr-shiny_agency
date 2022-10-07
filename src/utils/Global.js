@@ -1,4 +1,4 @@
-const global = {
+export const globalvar = {
   website: "http://127.0.0.1:3000",
   api: "http://127.0.0.1:8000",
   colors: 
@@ -10,4 +10,4 @@ const global = {
   
 };
 
-export default global;
+export default globalvar;

@@ -2,12 +2,12 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
-import global from "../../utils/Global";
+import globalvar from "../../utils/Global";
 import { useFetch } from "../../utils/hooks";
 
 const FreelanceDiv = styled.div`
   width: 90%;
-  background-color: ${global.colors.backgroundLight};
+  background-color: ${globalvar.colors.backgroundLight};
   margin: auto;
   display: flex;
   flex-direction: row;

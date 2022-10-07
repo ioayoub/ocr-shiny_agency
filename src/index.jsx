@@ -20,9 +20,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-      <SurveyProvider>
+        <SurveyProvider>
           <TestProvider>
-          
             <GlobalStyle />
             <Header />
             <Routes>

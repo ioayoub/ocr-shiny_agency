@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Loader, StyledLink } from "../../utils/Atoms";
 import { SurveyContext, ThemeContext } from "../../utils/Context";
 import { useFetch } from "../../utils/hooks";
-import global from "../../utils/Global";
+import globalvar from "../../utils/Global";
 import styled from "styled-components";
 
 const ResultsContainer = styled.div`
@@ -13,8 +13,8 @@ const ResultsContainer = styled.div`
   padding: 30px;
   background-color: ${({ theme }) =>
     theme === "light"
-      ? global.colors.backgroundLight
-      : global.colors.backgroundDark};
+      ? globalvar.colors.backgroundLight
+      : globalvar.colors.backgroundDark};
 `;
 
 const ResultsTitle = styled.h2`
@@ -34,7 +34,9 @@ const DescriptionWrapper = styled.div`
 
 const JobTitle = styled.span`
   color: ${({ theme }) =>
-    theme === "light" ? global.colors.primary : global.colors.backgroundLight};
+    theme === "light"
+      ? globalvar.colors.primary
+      : globalvar.colors.backgroundLight};
   text-transform: capitalize;
 `;
 
@@ -42,7 +44,7 @@ const JobDescription = styled.div`
   font-size: 18px;
   & > p {
     color: ${({ theme }) =>
-      theme === "light" ? global.colors.secondary : "#ffffff"};
+      theme === "light" ? globalvar.colors.secondary : "#ffffff"};
     margin-block-start: 5px;
   }
   & > span {
@@ -54,6 +56,13 @@ const LoaderWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export function formatJobList(title, listLength, index) {
+  if (index === listLength - 1) {
+    return title;
+  }
+  return `${title},`;
+}
 
 function formatQueryParams(answers) {
   const answerNumbers = Object.keys(answers);
@@ -70,14 +79,11 @@ const Results = () => {
   const { theme } = useContext(ThemeContext);
   const { answers } = useContext(SurveyContext);
 
-  console.log(answers);
-
   const queryParams = formatQueryParams(answers);
 
   const { data, isLoading, error } = useFetch(
     `http://localhost:8000/results?${queryParams}`
   );
-
 
   if (error) {
     return <div>Il semberait qu'une erreur s'est produite.</div>;
@@ -97,8 +103,7 @@ const Results = () => {
               key={`result-title-${index}-${result.title}`}
               theme={theme}
             >
-              {result.title}
-              {index === data.resultsData.length - 1 ? "" : ","}
+              {formatJobList(result.title, data.resultsData.length, index)}
             </JobTitle>
           ))}
       </ResultsTitle>

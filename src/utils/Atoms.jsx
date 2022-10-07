@@ -1,4 +1,4 @@
-import global from './Global'
+import globalvar from './Global'
 import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
  
@@ -14,7 +14,7 @@ const rotate = keyframes`
  
 export const Loader = styled.div`
     padding: 10px;
-    border: 6px solid ${global.colors.primary};
+    border: 6px solid ${globalvar.colors.primary};
     border-bottom-color: transparent;
     border-radius: 22px;
     animation: ${rotate} 1s infinite linear;
@@ -32,5 +32,5 @@ export const StyledLink = styled(Link)`
     props.$isFullLink &&
     `color: white; 
     border-radius: 30px; 
-    background-color: ${global.colors.primary};`}
+    background-color: ${globalvar.colors.primary};`}
 `

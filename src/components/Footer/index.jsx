@@ -1,7 +1,7 @@
 import React ,{ useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../../utils/Context";
-import global from "../../utils/Global";
+import globalvar from "../../utils/Global";
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -15,7 +15,7 @@ const NightModeButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: ${global.colors.secondary};
+  color: ${globalvar.colors.secondary};
 `;
 
 
