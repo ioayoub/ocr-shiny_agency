@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Card from "../../components/Card";
 import styled from "styled-components";
-import global from "../../utils/Global";
-import axios from "axios";
 import { Loader } from "../../utils/Atoms";
 import { useFetch } from "../../utils/hooks";
 
@@ -39,7 +37,7 @@ justify-content: center;
 function Freelances() {
 
   const { data, isLoading, error} = useFetch("http://localhost:8000/freelances");
-  
+
  if(error) {
   return <p>Il semblerait qu'une erreur s'est produite.</p>
  }

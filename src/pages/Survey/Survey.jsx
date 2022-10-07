@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import global from "../../utils/Global";
 import styled from "styled-components";
@@ -81,9 +81,6 @@ const Survey = () => {
   const nextNum = qNum <= 10 ? qNum + 1 : 10;
   const prevNum = qNum > 1 ? qNum - 1 : 1;
 
-  // const [questions, setQuestions] = useState();
-  // const [isLoading, setIsLoading] = useState(true);
-
   const { answers, saveAnswers } = useContext(SurveyContext);
 
   const { data, isLoading, error } = useFetch(`${global.api}/survey`);
@@ -93,19 +90,6 @@ const Survey = () => {
     saveAnswers({ [questionNumber]: answer });
   }
 
-  // useEffect(() => {
-  // async function fetchSurvey() {
-  //   try {
-  //     const response = await axios.get(`${global.api}/survey`);
-  //     setQuestions(response);
-  //   } catch (e) {
-  //     console.error(e);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-  // fetchSurvey();
-  // }, []);
   if (error) {
     return <QuestionContent>Il semberait qu'une erreur s'est produite.</QuestionContent>;
   }
@@ -140,11 +124,11 @@ const Survey = () => {
             <LinkWrapper to={`/survey/${prevNum}`} disabled={qNum === 1}>
               Précédent
             </LinkWrapper>
-            {qNum < 10 && (
+            {qNum < 6 && (
               <LinkWrapper to={`/survey/${nextNum}`}>Suivant</LinkWrapper>
             )}
 
-            {qNum === 10 && (
+            {qNum === 6 && (
               <LinkWrapper to="/results">Voir les résultats</LinkWrapper>
             )}
           </LinkDiv>

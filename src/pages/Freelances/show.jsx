@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
 import global from "../../utils/Global";
+import { useFetch } from "../../utils/hooks";
 
 const FreelanceDiv = styled.div`
   width: 90%;
@@ -47,30 +47,20 @@ const LoaderDiv = styled.div`
 `;
 
 const FreelanceShow = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [freelance, setFreelance] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [searchParams] = useSearchParams();
   let profileid = searchParams.get("id");
+  const { data, isLoading, error} = useFetch("http://127.0.0.1:8000/freelance?id=" + profileid)
+  // const [freelance, setFreelance] = useState();
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function getFreelance() {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/freelance?id=" + profileid
-        );
-        setFreelance(response.data.freelanceData);
-      } catch (e) {
-        console.log(e);
-        window.location.href = "/error";
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    getFreelance();
-  }, []);
+  console.log(data);
 
-  console.log(freelance);
+
+  if(error) {
+    return(
+      <FreelanceDiv>Une erreur s'est produite lors de la récupération du profil du freelance.</FreelanceDiv>
+    )
+  }
 
   return (
     <div>
@@ -81,24 +71,24 @@ const FreelanceShow = () => {
       ) : (
         <FreelanceDiv>
           <FreelanceAlignDiv>
-            <FreelanceImg src={freelance.picture} alt="freelance image" />
+            <FreelanceImg src={data.freelanceData.picture} alt="freelance image" />
           </FreelanceAlignDiv>
           <div style={{ marginTop: "auto", marginBottom: "auto" }}>
-            <h1>{freelance.name}</h1>
-            <h2>{freelance.job}</h2>
+            <h1>{data.freelanceData.name}</h1>
+            <h2>{data.freelanceData.job}</h2>
             <SkillUl>
-              {freelance.skills.map((skill, index) => (
+              {data.freelanceData.skills.map((skill, index) => (
                 <SkillLI key={index}>{skill}</SkillLI>
               ))}
             </SkillUl>
             <h3>
-              {freelance.available ? (
+              {data.freelanceData.available ? (
                 <span>Disponible maintenant</span>
               ) : (
                 <span>Non disponible</span>
               )}
             </h3>
-            <h3>{freelance.tjm} € / Jour</h3>
+            <h3>{data.freelanceData.tjm} € / Jour</h3>
           </div>
         </FreelanceDiv>
       )}

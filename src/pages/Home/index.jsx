@@ -2,6 +2,7 @@ import "../../styles/_home.css";
 import React from "react";
 import styled from "styled-components";
 import global from "../../utils/Global";
+import { useTheme } from "../../utils/hooks/theme";
 
 const Imgstyle = styled.img`
   margin-top : 5%;
@@ -34,6 +35,9 @@ const HomeBtn = styled.button`
 
 function Home() {
 
+  const theme = useTheme();
+  console.log(theme);
+  
   return (
     <HomeDiv className="home">
       <div className="home_txt">
