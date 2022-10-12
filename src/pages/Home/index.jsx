@@ -34,9 +34,6 @@ const HomeBtn = styled.button`
   cursor: pointer;
 `;
 
-export function sum(a, b) {
-  return a + b;
-}
 
 function Home() {
   const theme = useTheme();
@@ -44,7 +41,6 @@ function Home() {
 
   return (
     <HomeDiv className="home">
-      {sum(40,2)}
       <div className="home_txt">
         <HomeTitle>
           Récupérez vos besoins,

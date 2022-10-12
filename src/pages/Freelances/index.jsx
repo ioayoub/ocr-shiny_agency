@@ -56,9 +56,9 @@ function Freelances() {
         </LoaderDiv>
       ) : (
         <CardsContainer>
-          {data.freelancersList.map((profile, index) => (
-            <Card key={`${profile.name}-${index}`} profile={profile} />
-          ))}
+          {data.freelancersList && ( data.freelancersList.map((profile, index) => (
+            <Card key={`${profile.name}-${index}`} id={profile.id} name={profile.name} job={profile.job} picture={profile.picture} />
+          )))}
         </CardsContainer>
       )}
     </div>
