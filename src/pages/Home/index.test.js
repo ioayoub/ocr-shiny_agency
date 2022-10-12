@@ -20,6 +20,5 @@ describe("Home component", () => {
           "Récupérez vos besoins,on s'occupe du reste,avec les meilleurstalents",
       })
     ).toBeTruthy();
-    // screen.debug();
   });
 });

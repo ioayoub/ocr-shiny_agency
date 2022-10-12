@@ -37,7 +37,6 @@ const HomeBtn = styled.button`
 
 function Home() {
   const theme = useTheme();
-  console.log(theme);
 
   return (
     <HomeDiv className="home">

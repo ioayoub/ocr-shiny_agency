@@ -71,7 +71,6 @@ const CardFavoriteButton = styled.button`
 //   const name = profile ? profile.name : "name";
 //   const picture = profile ? profile.picture : "";
 
-//   console.log(profile);
 
 //   return (
 //     <CardDiv>
@@ -98,7 +97,7 @@ function Card({ id, name, job, picture }) {
     <CardDiv>
       <CardLink to={`/freelance?id=${id}`} style={{ textDecoration: "none" }}>
         <CardWrapper theme={theme} onClick={() => setIsFavorite(!isFavorite)}>
-          <CardLabel theme={theme}>{star}{name}{star}</CardLabel>
+          <CardLabel theme={theme}>{star} {name} {star}</CardLabel>
           <CardImage src={picture} alt="freelance" />
           <CardName theme={theme}>
              {job} 

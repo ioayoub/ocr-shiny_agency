@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import styled from "styled-components";
 import { Loader } from "../../utils/Atoms";
 import { useFetch } from "../../utils/hooks";
+import { useTheme } from "../../utils/hooks/theme";
 
 const CardsContainer = styled.div`
   display: grid;
@@ -37,8 +38,9 @@ justify-content: center;
 function Freelances() {
 
   const { data, isLoading, error} = useFetch("http://localhost:8000/freelances");
-
- if(error) {
+  const { theme } = useTheme();
+  
+ if(error) { 
   return <p>Il semblerait qu'une erreur s'est produite.</p>
  }
 
@@ -52,7 +54,7 @@ function Freelances() {
       </FreelancesTxt>
       {isLoading ? (
         <LoaderDiv>
-          <Loader />
+          <Loader theme={theme} data-testid="loader" />
         </LoaderDiv>
       ) : (
         <CardsContainer>
