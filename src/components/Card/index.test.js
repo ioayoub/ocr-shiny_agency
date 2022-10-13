@@ -18,7 +18,6 @@ describe("Card", () => {
         </ThemeProvider>
       </MemoryRouter>
     );
-    // screen.debug();
     const cardPicture = screen.getByRole("img");
     const cardTitle = screen.getByText(/Harry/i);
     const cardLink = screen.getByRole("link");
@@ -43,7 +42,6 @@ describe("Card", () => {
       </MemoryRouter>
     );
 
-    screen.debug()
     const cardTitle = screen.getByText(/Harry/i);
     const cardFavorite = screen.getByRole("button");
     fireEvent.click(cardFavorite);

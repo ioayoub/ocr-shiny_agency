@@ -39,7 +39,9 @@ function Freelances() {
 
   const { data, isLoading, error} = useFetch("http://localhost:8000/freelances");
   const { theme } = useTheme();
-  
+ 
+
+
  if(error) { 
   return <p>Il semblerait qu'une erreur s'est produite.</p>
  }

@@ -53,8 +53,6 @@ const FreelanceShow = () => {
   // const [freelance, setFreelance] = useState();
   // const [isLoading, setIsLoading] = useState(true);
 
-  console.log(data);
-
 
   if(error) {
     return(
